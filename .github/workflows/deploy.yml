@@ -1,0 +1,25 @@
+
+name: delo
+
+on:
+  push:
+    branches: [ "main" ]
+ 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+   
+  
+  run-test:
+
+    runs-on: ubuntu-latest
+
+ 
+    steps: 
+    - uses: actions/checkout@v4
+    - run: docker build . -t anupondocker/next-js-app
+    - run: echo "${{secrets.DOCKERHUB_PASSWORD}}"  |  docker login  -u "${{secrets.DOCKERHUB_USERNAME}}" --password-stdin
+    - run: docker push anupondocker/next-js-app:latest
